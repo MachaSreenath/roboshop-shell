@@ -40,13 +40,19 @@ VALIDATE $? "Enabling nodejs:18"
 
 dnf install nodejs -y &>> $LOGFILE
 
-VALIDATE $? "Installing nodejs 18" 
+VALIDATE $? "Installing nodejs 18"
+id roboshop
+if [ $? -ne 0 ]
+then
+    useradd roboshop 
+    VALIDATE $? "roboshop user"
+else
+    echo -e "roboshop user already exist $Y SKIPPING $N"
+fi
 
-useradd roboshop &>> $LOGFILE
+VALIDATE $? "Creating roboshop user" 
 
-VALIDATE $? "Adding user roboshop" 
-
-mkdir /app &>> $LOGFILE
+mkdir -p /app #here "-p" is used to prevent error if directory already exist, it will not throw error, if directory already exist it will not create it, if not exist it will create it.
 
 VALIDATE $? "Creating /app directory" 
 
@@ -56,7 +62,7 @@ VALIDATE $? "Downloading catalogue application"
  
 cd /app &>> $LOGFILE
 
-unzip /tmp/catalogue.zip &>> $LOGFILE
+unzip -o /tmp/catalogue.zip &>> $LOGFILE
 
 VALIDATE $? "Unzipping catalogue application" 
 
