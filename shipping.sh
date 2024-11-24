@@ -43,7 +43,7 @@ dnf install maven -y &>> $LOGFILE
 
 VALIDATE $? "Maven installation"
 
-mkdir /app
+mkdir -p /app
 
 VALIDATE $? "Creating app directory"
 
