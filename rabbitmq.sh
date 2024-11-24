@@ -53,6 +53,14 @@ rabbitmqctl add_user roboshop roboshop123 &>> $LOGFILE
 
 VALIDATE $? "Adding user roboshop"
 
+if [ $? -ne 0 ]
+then
+    useradd roboshop 
+    VALIDATE $? "roboshop user"
+else
+    echo -e "roboshop user already exist $Y SKIPPING $N"
+fi
+
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $LOGFILE
 
 VALIDATE $? "Setting permissions for user roboshop"
