@@ -79,11 +79,11 @@ VALIDATE $? "Reloading daemon"
 
 systemctl enable catalogue
 
-VALIDATE $? "Enabling catalogue service" 
+VALIDATE $? "Enabling catalogue" 
 
 systemctl start catalogue
 
-VALIDATE $? "Starting catalogue service"
+VALIDATE $? "Starting catalogue"
 
 cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
 
