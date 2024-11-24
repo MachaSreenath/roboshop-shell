@@ -52,7 +52,7 @@ fi
 
 mkdir -p /app #here "-p" is used to prevent error if directory already exist, it will not throw error, if directory already exist it will not create it, if not exist it will create it.
 
-VALIDATE $? "Creating /app directory" 
+VALIDATE $? "Creating app directory" 
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
 
@@ -66,8 +66,9 @@ VALIDATE $? "Unzipping catalogue application"
 
 npm install &>> $LOGFILE
 
-VALIDATE $? "Installing catalogue application dependencies" 
+VALIDATE $? "Installing dependencies" 
 
+#use absolute path, because catalogue.service exists outside of app directory.
 cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 
 VALIDATE $? "Copying catalogue service file"
