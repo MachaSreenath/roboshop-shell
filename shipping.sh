@@ -29,10 +29,6 @@ else
     echo "You are root user"
 fi
 
-dnf install maven -y
-
-VALIDATE $? "Maven installation"
-
 id roboshop
 
 if [ $? -ne 0 ]
@@ -42,6 +38,10 @@ then
 else
     echo -e "roboshop user already exist $Y SKIPPING $N"
 fi
+
+dnf install maven -y &>> $LOGFILE
+
+VALIDATE $? "Maven installation"
 
 mkdir /app
 
