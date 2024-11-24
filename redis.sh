@@ -8,7 +8,6 @@ N="\e[0m"
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
-exec &>$LOGFILE #here this command is used to store all the logs in the LOGFILE.And it is not visible in the working terminal, its working in the background.
 
 echo "script stareted executing at $TIMESTAMP" &>> $LOGFILE
 
