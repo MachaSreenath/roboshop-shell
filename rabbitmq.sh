@@ -5,6 +5,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+MONGDB_HOST=mongodb.daws76s.online
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
@@ -27,40 +28,32 @@ then
     exit 1 # you can give other than 0
 else
     echo "You are root user"
-fi
+fi # fi means reverse of if, indicating condition end
 
 curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash &>> $LOGFILE
 
-VALIDATE $? "Downloading Erlang script"
+VALIDATE $? "Downloading erlang script"
 
 curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>> $LOGFILE
 
-VALIDATE $? "Downloading RabbitMQ script"
+VALIDATE $? "Downloading rabbitmq script"
 
-dnf install rabbitmq-server -y &>> $LOGFILE
+dnf install rabbitmq-server -y  &>> $LOGFILE
 
-VALIDATE $? "Installing RabbitMQ"
+VALIDATE $? "Installing RabbitMQ server"
 
 systemctl enable rabbitmq-server &>> $LOGFILE
 
-VALIDATE $? "Enabling RabbitMQ"
+VALIDATE $? "Enabling rabbitmq server"
 
-systemctl start rabbitmq-server &>> $LOGFILE
+systemctl start rabbitmq-server  &>> $LOGFILE
 
-VALIDATE $? "Starting RabbitMQ"
+VALIDATE $? "Starting rabbitmq server"
 
 rabbitmqctl add_user roboshop roboshop123 &>> $LOGFILE
 
-VALIDATE $? "Adding user roboshop"
-
-if [ $? -ne 0 ]
-then
-    useradd roboshop 
-    VALIDATE $? "roboshop user"
-else
-    echo -e "roboshop user already exist $Y SKIPPING $N"
-fi
+VALIDATE $? "creating user"
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $LOGFILE
 
-VALIDATE $? "Setting permissions for user roboshop"
+VALIDATE $? "setting permission"
