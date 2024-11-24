@@ -45,30 +45,52 @@ fi
 
 mkdir /app
 
-VALIDATE $? "Directory creation"
+VALIDATE $? "Creating app directory"
 
-curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip
+curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip &>> $LOGFILE
+
+VALIDATE $? "Downloading shipping"
 
 cd /app
 
-unzip -o /tmp/shipping.zip
+VALIDATE $? "Moving to app directory"
 
-mvn clean package
+unzip -o /tmp/shipping.zip &>> $LOGFILE
 
-mv target/shipping-1.0.jar shipping.jar
+VALIDATE $? "Unzipping shipping"
 
-cp /home/centos/roboshop-shell/shipping.service /etc/systemd/system/shipping.service
+mvn clean package &>> $LOGFILE
+
+VALIDATE $? "Installing dependencies"
+
+mv target/shipping-1.0.jar shipping.jar &>> $LOGFILE
+
+VALIDATE $? "Renaming jar file"
+
+cp /home/centos/roboshop-shell/shipping.service /etc/systemd/system/shipping.service &>> $LOGFILE
+
+VALIDATE $? "Copying shipping service"
 
 systemctl daemon-reload
 
+VALIDATE $? "Reloading daemon"
+
 systemctl enable shipping 
+
+VALIDATE $? "Enabling shipping service"
 
 systemctl start shipping
 
-dnf install mysql -y
+VALIDATE $? "Starting shipping service"
 
-VALIDATE $? "MySQL installation"
+dnf install mysql -y &>> $LOGFILE
 
-mysql -h mysql.forpractice.uno -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+VALIDATE $? "Installing mysql client"
 
-systemctl restart shipping
+mysql -h mysql.forpractice.uno -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE
+
+VALIDATE $? "Loading shipping database"
+
+systemctl restart shipping 
+
+VALIDATE $? "Restarting shipping service"
