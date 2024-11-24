@@ -29,26 +29,26 @@ else
     echo "You are root user"
 fi
 
-dnf module disable mysql -y
+dnf module disable mysql -y &>> $LOGFILE
 
 VALIDATE $? "Disable mysql module"
 
-cp mysql.repo /etc/yum.repos.d/mysql.repo
+cp mysql.repo /etc/yum.repos.d/mysql.repo &>> $LOGFILE
 
 VALIDATE $? "Copy mysql repo"
 
-dnf install mysql-community-server -y
+dnf install mysql-community-server -y &>> $LOGFILE
 
 VALIDATE $? "Install mysql"
 
-systemctl enable mysqld
+systemctl enable mysqld &>> $LOGFILE
 
 VALIDATE $? "Enable mysql service"
 
-systemctl start mysqld
+systemctl start mysqld &>> $LOGFILE
 
 VALIDATE $? "Start mysql service"
 
-mysql_secure_installation --set-root-pass RoboShop@1
-
+mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOGFILE
+ 
 VALIDATE $? "Setting mysql root password"
