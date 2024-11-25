@@ -43,7 +43,7 @@ dnf install maven -y &>> $LOGFILE
 
 VALIDATE $? "Maven installation"
 
-mkdir -p /app
+mkdir -p /app &>> $LOGFILE
 
 VALIDATE $? "Creating app directory"
 
@@ -51,7 +51,7 @@ curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.z
 
 VALIDATE $? "Downloading shipping"
 
-cd /app
+cd /app &>> $LOGFILE
 
 VALIDATE $? "Moving to app directory"
 
