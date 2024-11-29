@@ -1,9 +1,9 @@
 #!/bin/bash
 
-AMI=ami-0b4f379183e5706b9 #this keeps on changing
-SG_ID=sg-0b5846436e6cc4f05 #replace with your SG ID
+AMI=ami-0b4f379183e5706b9 # change this everytime while practicing
+SG_ID=sg-0b5846436e6cc4f05 # it is same always so keep it.
 INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "web")
-ZONE_ID=Z016460536HW3XT7VUB95 # replace your zone ID
+ZONE_ID=Z016460536HW3XT7VUB95 # this is also same everytime so keep it. 
 DOMAIN_NAME="forpractice.uno"
 
 for i in "${INSTANCES[@]}"
