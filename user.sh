@@ -34,9 +34,9 @@ dnf module disable nodejs -y &>> $LOGFILE
 
 VALIDATE $? "Disabling nodejs" 
 
-dnf module enable nodejs:18 -y &>> $LOGFILE
+dnf module enable nodejs:20 -y &>> $LOGFILE
 
-VALIDATE $? "Enabling nodejs:18" 
+VALIDATE $? "Enabling nodejs:20" 
 
 dnf install nodejs -y &>> $LOGFILE
 
@@ -90,10 +90,10 @@ cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
 
 VALIDATE $? "Copying mongo repository file"
 
-dnf install mongodb-org-shell -y &>> $LOGFILE
+dnf install mongodb-mongosh -y &>> $LOGFILE
 
 VALIDATE $? "Installing mongodb client"
 
-mongo --host $mongodb_host </app/schema/user.js &>> $LOGFILE
+mongosh --host $mongodb_host </app/schema/user.js &>> $LOGFILE
 
 VALIDATE $? "Loading user data into mongodb"

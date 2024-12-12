@@ -29,17 +29,9 @@ else
     echo "You are root user"
 fi 
 
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>> $LOGFILE
-
-VALIDATE $? "Installing remi-release"
-
-dnf module enable redis:remi-6.2 -y &>> $LOGFILE
-
-VALIDATE $? "Enabling redis"
-
 dnf install redis -y &>> $LOGFILE
 
-VALIDATE $? "Installing redis"
+VALIDATE $? "Installing remi-release"
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf &>> $LOGFILE
 

@@ -33,13 +33,13 @@ dnf module disable nodejs -y &>> $LOGFILE
 
 VALIDATE $? "Disabling nodejs" 
 
-dnf module enable nodejs:18 -y &>> $LOGFILE
+dnf module enable nodejs:20 -y &>> $LOGFILE
 
-VALIDATE $? "Enabling nodejs:18" 
+VALIDATE $? "Enabling nodejs:20" 
 
 dnf install nodejs -y &>> $LOGFILE
 
-VALIDATE $? "Installing nodejs 18"
+VALIDATE $? "Installing nodejs 20"
 id roboshop
 if [ $? -ne 0 ]
 then
