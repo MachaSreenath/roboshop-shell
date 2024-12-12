@@ -29,9 +29,17 @@ else
     echo "You are root user"
 fi
 
-dnf install mysql-server -y &>> $LOGFILE
+dnf module disable mysql -y &>> $LOGFILE
 
-VALIDATE $? "Installing mysql server"
+VALIDATE $? "Disable mysql module"
+
+cp mysql.repo /etc/yum.repos.d/mysql.repo &>> $LOGFILE
+
+VALIDATE $? "Copy mysql repo"
+
+dnf install mysql-community-server -y &>> $LOGFILE
+
+VALIDATE $? "Install mysql"
 
 systemctl enable mysqld &>> $LOGFILE
 

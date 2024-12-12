@@ -29,7 +29,7 @@ else
     echo "You are root user"
 fi
 
-dnf install python3.11 gcc python3-devel -y &>> $LOGFILE
+dnf install python36 gcc python3-devel -y &>> $LOGFILE
 
 VALIDATE $? "Installing python"
 
@@ -59,7 +59,7 @@ unzip /tmp/payment.zip &>> $LOGFILE
 
 VALIDATE $? "Unzipping payment zip"
 
-pip3.11 install -r requirements.txt &>> $LOGFILE
+pip3.6 install -r requirements.txt &>> $LOGFILE
 
 VALIDATE $? "Installing python dependencies"
 

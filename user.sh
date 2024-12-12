@@ -90,10 +90,10 @@ cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
 
 VALIDATE $? "Copying mongo repository file"
 
-dnf install mongodb-mongosh -y &>> $LOGFILE
+dnf install mongodb-org-shell -y &>> $LOGFILE
 
 VALIDATE $? "Installing mongodb client"
 
-mongosh --host $mongodb_host </app/schema/user.js &>> $LOGFILE
+mongo --host $mongodb_host </app/schema/user.js &>> $LOGFILE
 
 VALIDATE $? "Loading user data into mongodb"
